@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.1
+.VERSION 1.2
 
 .GUID 134de175-8fd8-4938-9812-053ba39eed83
 
@@ -80,9 +80,7 @@ function ESASpamQuarantine($Block_Sender, $Block_Recipient) {
 	if ( ([string]::IsNullOrEmpty($SenderList)) -and ([string]::IsNullOrEmpty($SenderList_domain)) ){
 		$BODY = "{ `n`"action`": `"add`", `n`"quarantineType`": `"spam`", `n`"viewBy`": `"recipient`", `n`"senderList`":  [`"$Block_Sender`"], `n`"recipientAddresses`": [`"$Block_Recipient`"] `n}"
 		$Response_1 = Invoke-RestMethod -Method 'POST' -Uri "$ESAURL1/esa/api/v2.0/quarantine/blocklist" -Headers $HEADERS -Body $BODY
-		ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST1 "slblconfig EXPORT"
 		$Response_2 = Invoke-RestMethod -Method 'POST' -Uri "$ESAURL2/esa/api/v2.0/quarantine/blocklist" -Headers $HEADERS -Body $BODY
-		ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST2 "slblconfig EXPORT"
 		Write-OutPut "********************************************************************"
 		Write-Output $Response_1 | ConvertTo-Json
 		Write-Output $Response_2 | ConvertTo-Json
@@ -95,9 +93,7 @@ function ESASpamQuarantine($Block_Sender, $Block_Recipient) {
 		}else{
 			$BODY = "{ `n`"action`": `"append`", `n`"quarantineType`": `"spam`", `n`"viewBy`": `"sender`", `n`"senderAddresses`":  [`"$Block_Sender`"], `n`"recipientList`": [`"$Block_Recipient`"] }"
 			$Response_1 = Invoke-RestMethod -Method 'POST' -Uri "$ESAURL1/esa/api/v2.0/quarantine/blocklist" -Headers $HEADERS -Body $BODY
-			ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST1 "slblconfig EXPORT"
 			$Response_2 = Invoke-RestMethod -Method 'POST' -Uri "$ESAURL2/esa/api/v2.0/quarantine/blocklist" -Headers $HEADERS -Body $BODY
-			ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST2 "slblconfig EXPORT"
 			Write-OutPut "********************************************************************"
 			Write-OutPut "*************************Block the Sender***************************"
 			Write-OutPut "********************************************************************"
@@ -163,4 +159,6 @@ if ( (-not [string]::IsNullOrEmpty($Sender)) -and (ValidateEmailorDomain($Sender
 			}
 		}
 	}
+	ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST1 "slblconfig EXPORT"
+	ssh -i ~\.ssh\$PRIVATEKEY $ESAUSERNAME@$HOST2 "slblconfig EXPORT"
 }else{ Write-OutPut( "$Sender is not valid, it only can be an email address or a domain name (e.g.: user@domain.com, server.domain.com, domain.com)") }
