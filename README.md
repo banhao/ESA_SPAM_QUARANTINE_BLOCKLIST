@@ -1,6 +1,6 @@
 # ESA SPAM QUARANTINE BLOCKLIST
 [![Minimum Supported PowerShell Version](https://img.shields.io/badge/PowerShell-5.1+-purple.svg)](https://github.com/PowerShell/PowerShell) ![Cross Platform](https://img.shields.io/badge/platform-windows-lightgrey)
-[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/AutoSpamEmailScan)](https://www.powershellgallery.com/packages/AutoSpamEmailScan) [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/AutoSpamEmailScan)](https://www.powershellgallery.com/packages/AutoSpamEmailScan)
+[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/ESA_SPAM_QUARANTINE_BLOCKLIST)](https://www.powershellgallery.com/packages/ESA_SPAM_QUARANTINE_BLOCKLIST) [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/ESA_SPAM_QUARANTINE_BLOCKLIST)](https://www.powershellgallery.com/packages/ESA_SPAM_QUARANTINE_BLOCKLIST)
 
 
 "ESA_SPAM_QUARANTINE_BLOCKLIST.ps1" is used to add "email address" or "domain name" into ESA SPAM QUARANTINE BLOCKLIST by calling the ESA API
